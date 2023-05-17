@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>發送按鈕的事件ajax</title>
+</head>
+
+<body>
+  <button>發送請求</button>
+  <script>
+    var btn = document.querySelector("button");//回傳list
+    btn.onclick = function (e) {
+      console.log(e);
+      //創建一個xhr 物件，準備發送ajax 請求
+      var xhr = new XMLHttpRequest();
+      console.log(xhr);
+      //偵測事件狀態是否改變，並偵測伺服器資料是否已接收，接受成功後在console.log讀取
+      //提出 http request
+      xhr.open('GET', 'ajax&http2.php', true);
+      /*
+    true 非同步
+    open()表⽰要將請求發往某處，只是設置⽽不是真的發送。
+     */
+      // //設置一個timeout 時間
+      // xhr.timeout = 5000;
+      xhr.send(null);
+
+      xhr.onreadystatechange = function () {
+        //判斷當前的請求的進行狀態
+        if (xhr.readyState == 4) {
+          //後端已經接收到前端發出的發送資料請求
+          if (xhr.status == 200) {
+            console.log(xhr.responseText);
+            console.log(typeof xhr.responseText);
+            console.log(JSON.parse(xhr.responseText));
+          } else {
+            console.log(xhr.statusText);
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

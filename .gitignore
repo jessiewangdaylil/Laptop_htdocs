@@ -1,0 +1,3 @@
+*.sublime-package
+*.sublime_session
+bootstrap/

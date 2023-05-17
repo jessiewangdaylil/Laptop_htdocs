@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var xhr = new XMLHttpRequest();
+    //偵測事件狀態是否改變，並偵測伺服器資料是否已接收，接受成功後在console.log讀取
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          console.log(JSON.parse(xhr.responseText));
+        } else {
+          console.log(xhr.statusText);
+        }
+      }
+    }
+    //事件錯誤發生時的動作
+    xhr.onerror = function (e) {
+      console.log(xhr.statusText);
+    }
+    //提出 http request
+    xhr.open('GET', 'ajax&http.php', true);
+    /*
+  true 非同步
+  open()表⽰要將請求發往某處，只是設置⽽不是真的發送。
+   */
+    //設置一個timeout 時間
+    xhr.timeout = 5000;
+    xhr.send(null);
+  /*
+              ⽤於實際發出HTTP請求。
+              如果是 get 請求則參數直接寫 null
+              */
+  </script>
+</body>
+
+</html>

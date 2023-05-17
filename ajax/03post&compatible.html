@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <label for="username">
+    <span>用戶名:</span>
+    <input type="text" name="username" id="username" class="username">
+  </label><br>
+  <label for="password">
+    <span>密碼:</span>
+    <input type="password" name="password" id="password" class="password">
+  </label><br>
+  <button>登入</button>
+
+
+  <script>
+
+    var usernameInput = document.querySelector('.username');
+    var passwordInput = document.querySelector('.password');
+
+    var btn = document.querySelector('button');
+    btn.onclick = function (e) {
+      console.log('onclick');
+      // console.log(usernameInput.value);
+      // console.log(passwordInput.value);
+      //瀏覽器相容性考量
+      // var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('');
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            console.log(xhr.responseText);
+          } else {
+            console.log(xhr.statusText);
+          }
+        }
+      };
+
+      //產生post 數據，可使用 FormData 物件
+      var datas = new FormData();
+      // console.log(datas.get('value'));
+      datas.append('uname', usernameInput.value);
+      datas.append('upass', passwordInput.value);
+      // console.log(datas);
+
+      xhr.open('post', '03post&compatible.php', true);
+      xhr.send(datas);
+    };
+  </script>
+</body>
+
+</html>
